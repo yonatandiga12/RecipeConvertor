@@ -1,12 +1,12 @@
-from Conversions import convertToGrams
-from convertToText import readPicture
+from Business.Conversions import convertToGrams
+from Business.convertToText import readPicture
 
 
 def startFunc():
     result = list()
     ingredients = readPicture('recipe1.jpg')
-    for ingredient in ingredients:
-        result.append(convertToGrams(ingredient))
+    for sentence in ingredients:
+        result.append(convertToGrams(sentence))
 
     print(result)
 
