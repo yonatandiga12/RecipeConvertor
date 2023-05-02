@@ -42,10 +42,6 @@ def getUnitIndexInSentence(sentence, unit):
     return -1
 
 
-
-
-
-
 def convertStringToNumber(sentence, unit):  ##
     p = '[-]?[0-9]+[,.]?[0-9]*([\\/][0-9]+[,.]?[0-9]*)*'
     #p = '[-]?[0-9]+[,.]?[0-9]*([\\/][0-9]+[,.]?[0-9]*)*([\\/ ][0-9]+[,.]?[0-9]*)*'    #the last part for 1 3/4
@@ -64,7 +60,7 @@ def convertStringToNumber(sentence, unit):  ##
         return -1
 
     numberFound = numberFound.string
-    return convert_to_float(numberFound)
+    return convertToFloat(numberFound)
 
 
 def gramsExists(sentence):
@@ -135,7 +131,7 @@ def convertToGrams(sentence: str):
         return currLower  # No need to convert this sentence to grams
 
 
-def convert_to_float(frac_str):
+def convertToFloat(frac_str):
     try:
         return float(frac_str)
     except ValueError:

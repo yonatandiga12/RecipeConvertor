@@ -59,6 +59,26 @@ class TestConversions(TestCase):
         self.fail()
 
 
+    def test_getUnitIndexInSentence(self):
+        self.fail()
+
+
+    def test_getAmountOfIngredientInGrams(self):
+        self.fail()
+
+
+    def test_convertUnitToGrams(self):
+        self.fail()
+
+    def test_convert_to_float(self):
+        self.fail()
+
+    def test_convertToGrams(self):
+        self.fail()
+
+
+
+
 
 if __name__ == '__main__':
     unittest.main()
