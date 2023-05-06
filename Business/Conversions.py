@@ -1,5 +1,5 @@
 import re
-from DAL.ConversionTable import getAllIngredients, getWeightOfIngredientInUnit
+from DAL.ConversionTable import *
 
 # Sites to use:
 # https://www.kingarthurbaking.com/learn/ingredient-weight-chart
@@ -13,11 +13,6 @@ tspList = ['tsp', 'teaspoon']
 cupsList = ['cup', 'cups']
 ounceList = ['ounce', 'oz']
 keywords = tspList + tbspList + cupsList + ounceList
-
-TSP = 1
-TBSP = 2
-CUP = 3
-OZ = 4
 
 
 def getUnitIndexInSentence(sentence, unit):
@@ -67,12 +62,12 @@ def gramsExists(sentence):
     if 'gram' in sentence:
         return True
 
-    numbersFound = re.findall(r'\d+', sentence)
     sentencedWithoutSpace = sentence.replace(" ", "")  # if there is 400 g and not 400g
+    numbersFound = re.findall(r'\d+', sentence)
     for number in numbersFound:
-        index = sentencedWithoutSpace.find(number)
-        if index + 1 < len(sentencedWithoutSpace):
-            if sentencedWithoutSpace[index + 1] == 'g':  # There is a number and than g, that means 400g
+        index = sentencedWithoutSpace.find(number) + len(number)
+        if index < len(sentencedWithoutSpace):
+            if sentencedWithoutSpace[index] == 'g':  # There is a number and than g, that means 400g
                 return True
     return False
 
@@ -93,12 +88,12 @@ def getIngredientFromSentence(sentence):
 
 def getAmountOfIngredientInGrams(ingredient, amount, unit):
     # result should be like this : "50g flour"
-
     weightOfUnit = getWeightOfIngredientInUnit(ingredient, unit)
-    totalWeight = amount * weightOfUnit
-    # return totalWeight + " g " + ingredient
+    if amount <= 0 or weightOfUnit == -1:
+        return ""
 
-    return "50g flour"
+    totalWeight = round(amount * weightOfUnit, 3)
+    return str(totalWeight) + " g " + ingredient
 
 
 def convertUnitToGrams(sentence, unit):
@@ -122,32 +117,14 @@ def convertToGrams(sentence: str):
     if any(a in currLower for a in tbspList):
         return convertUnitToGrams(currLower, TBSP)
     elif any(a in currLower for a in tspList):
-        return convertUnitToGrams(currLower, TBSP)
+        return convertUnitToGrams(currLower, TSP)
     elif any(a in currLower for a in cupsList):
-        return convertUnitToGrams(currLower, TBSP)
+        return convertUnitToGrams(currLower, CUP)
     elif any(a in currLower for a in ounceList):
-        return convertUnitToGrams(currLower, TBSP)
+        return convertUnitToGrams(currLower, OZ)
     else:
         return currLower  # No need to convert this sentence to grams
 
-
-def convertToFloat(frac_str):
-    try:
-        return float(frac_str)
-    except ValueError:
-        try:
-            num, denom = frac_str.split('/')
-        except ValueError:
-            return None
-        try:
-            leading, num = num.split(' ')
-        except ValueError:
-            return float(num) / float(denom)
-        if float(leading) < 0:
-            sign_mult = -1
-        else:
-            sign_mult = 1
-        return float(leading) + sign_mult * (float(num) / float(denom))
 
 
 # for tests!
@@ -166,3 +143,5 @@ def getNumOfUnit(unitString):
 
 if __name__ == '__main__':
     print('Conversions')
+    uploadFromCSV()
+
