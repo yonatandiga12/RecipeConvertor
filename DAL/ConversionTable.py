@@ -43,7 +43,6 @@ def uploadFromCSV():
         tspTableIndex = firstRow.index('tsp')
         tbspTableIndex = firstRow.index('tbsp')
         cupTableIndex = firstRow.index('cup')
-        ozTableIndex = firstRow.index('oz')
 
         for row in csvreader:
             ingredientsDict[row[0].lower()] = (convertToFloat(row[tspTableIndex]),

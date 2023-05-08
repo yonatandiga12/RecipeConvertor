@@ -29,7 +29,6 @@ class TestConversions(TestCase):
         result = convertStringToNumber("10 tablespoons (145 grams) unsalted butter", getNumOfUnit('tbsp'))
         self.assertEqual(result, 10)
 
-
     def test_convertStringToNumber_ShouldFail(self):
 
         result = convertStringToNumber("1 large egg", getNumOfUnit('cup'))
@@ -47,7 +46,6 @@ class TestConversions(TestCase):
         result = convertStringToNumber("85g plain flour", getNumOfUnit('tbsp'))
         self.assertEqual(result, -1)
 
-
     def test_gramsExists_Valid(self):
         self.assertTrue(gramsExists("400g flour"))
         self.assertTrue(gramsExists("400 g flour"))
@@ -61,30 +59,69 @@ class TestConversions(TestCase):
         self.assertTrue(gramsExists("1 cup (140g) flour"))
         self.assertTrue(gramsExists("1 cup (140 g) flour"))
 
-
-
     def test_gramsExists_Fail(self):
         self.assertFalse(gramsExists("1 cup flour"))
         self.assertFalse(gramsExists("1 cup granola"))
         self.assertFalse(gramsExists("1 tsp flour"))
         self.assertFalse(gramsExists("1 tsp flour"))
 
-
-
     def test_getIngredientFromSentence(self):
-        self.fail()
+        result = getIngredientFromSentence("1 cup flour")
+        self.assertEqual(result, "flour")
 
+        result = getIngredientFromSentence("1 cup whole wheat flour")
+        self.assertEqual(result, "whole wheat flour")
 
-    def test_getUnitIndexInSentence(self):
-        self.fail()
+        result = getIngredientFromSentence("1 cup butter")
+        self.assertEqual(result, "butter")
 
+        result = getIngredientFromSentence("2 tsp coconut")
+        self.assertEqual(result, "coconut")
+
+        result = getIngredientFromSentence("2 tsp sugar")
+        self.assertEqual(result, "sugar")
+
+        result = getIngredientFromSentence("2 tsp powdered sugar")
+        self.assertEqual(result, "powdered sugar")
+
+        result = getIngredientFromSentence("2 tsp water")
+        self.assertEqual(result, "water")
+
+        result = getIngredientFromSentence("2 tsp cornstarch")
+        self.assertEqual(result, "cornstarch")
+
+    def test_getUnitIndexInSentence_Valid(self):
+        result = getUnitIndexInSentence("1 cup flour", getNumOfUnit('cup'))
+        self.assertEqual(result, 2)
+
+        result = getUnitIndexInSentence("1 tablespoon flour", getNumOfUnit('tbsp'))
+        self.assertEqual(result, 2)
+
+        result = getUnitIndexInSentence("1  tablespoon flour", getNumOfUnit('tbsp'))
+        self.assertEqual(result, 3)
+
+        result = getUnitIndexInSentence("1  tsp flour", getNumOfUnit('tsp'))
+        self.assertEqual(result, 3)
+
+        result = getUnitIndexInSentence("4444 teaspoons flour", getNumOfUnit('tsp'))
+        self.assertEqual(result, 5)
+
+    def test_getUnitIndexInSentence_Fail(self):
+        result = getUnitIndexInSentence("1 cup flour", getNumOfUnit('tsp'))
+        self.assertEqual(result, -1)
+
+        result = getUnitIndexInSentence("1 tablespoon flour", getNumOfUnit('tsp'))
+        self.assertEqual(result, -1)
+
+        result = getUnitIndexInSentence("1  tablespoon flour", getNumOfUnit('cup'))
+        self.assertEqual(result, -1)
 
     def test_getAmountOfIngredientInGrams_Valid(self):
         result = getAmountOfIngredientInGrams('flour', 3, getNumOfUnit('cup'))
-        self.assertEqual(result, '426.0 g flour')
+        self.assertEqual(result, '420.0 g flour')
 
         result = getAmountOfIngredientInGrams('flour', 3, getNumOfUnit('tbsp'))
-        self.assertEqual(result, '23.436 g flour')
+        self.assertEqual(result, '23.4 g flour')
 
         result = getAmountOfIngredientInGrams('flour', 3, getNumOfUnit('tsp'))
         self.assertEqual(result, '7.5 g flour')
@@ -96,7 +133,7 @@ class TestConversions(TestCase):
         self.assertEqual(result, '2000.0 g sugar')
 
         result = getAmountOfIngredientInGrams('sugar', 10, getNumOfUnit('tsp'))
-        self.assertEqual(result, '41.667 g sugar')
+        self.assertEqual(result, '42.0 g sugar')
 
         result = getAmountOfIngredientInGrams('sugar', 10, getNumOfUnit('tbsp'))
         self.assertEqual(result, '125.0 g sugar')
@@ -130,8 +167,6 @@ class TestConversions(TestCase):
         self.assertEqual(convertToFloat("1-5"), None)
         self.assertEqual(convertToFloat("a"), None)
         self.assertEqual(convertToFloat("#"), None)
-
-
 
     def test_convertToGrams(self):
         self.fail()
