@@ -26,11 +26,18 @@ def getWeightOfIngredientInUnit(ingredient, unit):
     if unit < 0:
         return -1
 
-    if ingredient in ingredientsDict.keys():
-        return ingredientsDict[ingredient][unit]
+    keyRepresentation = getIngredientKeyRepresentation(ingredient)
+    if keyRepresentation in ingredientsDict.keys():
+        return ingredientsDict[keyRepresentation][unit]
 
     return -1
 
+def getIngredientKeyRepresentation(ingredient):
+    for currIngredient in ingredientsDict.keys():   #The ingredient has multiple names in the table
+        currSplitted = currIngredient.split(';')
+        if ingredient in currSplitted:            #so if one of them matches return the key
+            return currIngredient
+    return ""
 
 
 def uploadFromCSV():

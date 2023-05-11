@@ -73,12 +73,13 @@ def gramsExists(sentence):
 
 
 def getIngredientFromSentence(sentence):
-    ingredients = getAllIngredients()
+    allIngredients = getAllIngredients()
 
     foundList = list()  # put results to list if we have for example "flour" and "self-raising flour"
-    for ingredient in ingredients:
-        if ingredient in sentence:
-            foundList.append(ingredient)
+    for ingredientNames in allIngredients:
+        for ingredient in ingredientNames.split(';'):
+            if ingredient in sentence:
+                foundList.append(ingredient)
 
     if len(foundList) != 0:
         return max(foundList, key=len)  # returns the longest ingredient

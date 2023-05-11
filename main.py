@@ -4,11 +4,13 @@ from Business.convertToText import readPicture
 
 def startFunc():
     result = list()
-    ingredients = readPicture('recipe3.jpg')
+    ingredients = readPicture('testRecipe.jpg')
     for sentence in ingredients:
-        result.append(convertToGrams(sentence))
+        curr = convertToGrams(sentence)
+        result.append(curr)
 
-    print(result)
+    for curr in result:
+        print(curr)
 
 
 
