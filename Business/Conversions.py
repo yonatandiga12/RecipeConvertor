@@ -72,17 +72,51 @@ def gramsExists(sentence):
     return False
 
 
+
+def findMatchWithLowestIndex(subStrings, sentence):
+    if len(subStrings) == 0:
+        return ""
+    bestSub = subStrings[0]
+    minIndex = sentence.index(bestSub)
+    if len(subStrings) == 1:
+        return bestSub
+    else:
+        for subString in subStrings:
+            currIndex = sentence.index(subString)
+            if currIndex < minIndex:
+                minIndex = currIndex
+                bestSub = subString
+            #if I have another ingredient but longer, its probably better.
+            #example : 1 cup of coconut milk. if by accident we have [coconut, coconut milk] the
+            # coconut milk will be chosen
+            if currIndex == minIndex and len(subString) > len(bestSub):
+                minIndex = currIndex
+                bestSub = subString
+    return bestSub
+
+
 def getIngredientFromSentence(sentence):
     allIngredients = getAllIngredients()
 
     foundList = list()  # put results to list if we have for example "flour" and "self-raising flour"
     for ingredientNames in allIngredients:
+        sameCategoryList = list()
         for ingredient in ingredientNames.split(';'):
             if ingredient in sentence:
-                foundList.append(ingredient)
+                sameCategoryList.append(ingredient)
+                #foundList.append(ingredient)
+        if len(sameCategoryList) > 0:
+            foundList.append(sameCategoryList)
 
     if len(foundList) != 0:
-        return max(foundList, key=len)  # returns the longest ingredient
+        if len({len(i) for i in foundList}) == 1:                     #if it matches several ingredient and all of them
+            flatList = [item for sublist in foundList for item in sublist] #has the same chance to be the ingredient
+            return max(flatList, key=len)
+
+        longestList = max(foundList, key=len)
+
+        return findMatchWithLowestIndex(longestList, sentence)
+        #return max(foundList, key=len)  # returns the longest ingredient
 
     return ""  # found nothing!
 
@@ -94,7 +128,7 @@ def getAmountOfIngredientInGrams(ingredient, amount, unit):
         return ""
 
     totalWeight = round(amount * weightOfUnit, 3)
-    return str(totalWeight) + " g " + ingredient
+    return str(totalWeight) + " g " + ingredient.strip()
 
 
 def convertUnitToGrams(sentence, unit):

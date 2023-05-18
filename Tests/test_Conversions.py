@@ -73,7 +73,7 @@ class TestConversions(TestCase):
         self.assertEqual(result, "whole wheat flour")
 
         result = getIngredientFromSentence("1 cup butter")
-        self.assertEqual(result, "butter")
+        self.assertEqual(result, " butter")
 
         result = getIngredientFromSentence("2 tsp coconut")
         self.assertEqual(result, "coconut")
@@ -168,12 +168,26 @@ class TestConversions(TestCase):
         self.assertEqual(convertToFloat("a"), None)
         self.assertEqual(convertToFloat("#"), None)
 
-    def test_convertToGrams(self):
-        self.fail()
 
 
+    def test_convertUnitToGrams_ConfusingIngredients(self):
+        # result = convertUnitToGrams("1 cup buttermilk", getNumOfUnit("cup"))
+        # self.assertEqual(result, "240.0 g buttermilk")
+        #
+        # result = convertUnitToGrams("1 cup butter", getNumOfUnit("cup"))
+        # self.assertEqual(result, "227.0 g butter")
+        #
+        # result = convertUnitToGrams("1 cup milk", getNumOfUnit("cup"))
+        # self.assertEqual(result, "240.0 g milk")
 
+        result = convertUnitToGrams("1 cup coconut milk", getNumOfUnit("cup"))
+        self.assertEqual(result, "240.0 g coconut milk")
 
+        result = convertUnitToGrams("1 cup milk or buttermilk or coconut milk", getNumOfUnit("cup"))
+        self.assertEqual(result, "240.0 g milk")
+
+        result = convertUnitToGrams("1 cup coconut milk or buttermilk or milk", getNumOfUnit("cup"))
+        self.assertEqual(result, "240.0 g coconut milk")
 
 if __name__ == '__main__':
     unittest.main()
