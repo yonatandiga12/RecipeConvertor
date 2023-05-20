@@ -55,6 +55,14 @@ def convertStringToNumber(sentence, unit):  ##
         return -1
 
     numberFound = numberFound.string
+
+    removeChars = ['(', ')', 'and', '[', ']', '_', '=']    #remove interfering chars from number
+    for char in removeChars:
+        if char in numberFound:
+            numberFound = numberFound.replace(char, " ")
+
+    numberFound = "".join(c for c in numberFound if not c.isalpha())  #remove letters from number
+
     return convertToFloat(numberFound)
 
 
@@ -144,6 +152,9 @@ def convertUnitToGrams(sentence, unit):
         return sentence
 
     result = getAmountOfIngredientInGrams(ingredient, amount, unit)
+    if result == "":
+        return sentence
+
     return result
 
 

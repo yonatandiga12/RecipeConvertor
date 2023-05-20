@@ -72,7 +72,10 @@ def convertToFloat(frac_str):
         try:
             leading, num = num.split(' ')
         except ValueError:
-            return float(num) / float(denom)
+            try:
+                return float(num) / float(denom)
+            except ValueError:
+                return -1
         if float(leading) < 0:
             sign_mult = -1
         else:
