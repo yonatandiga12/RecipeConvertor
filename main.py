@@ -4,7 +4,7 @@ from Business.convertToText import readPicture
 
 def startFunc():
     result = list()
-    ingredients = readPicture('recipe7.jpg')
+    ingredients = readPicture('recipe6.jpg')
     for sentence in ingredients:
         curr = convertToGrams(sentence)
         result.append(curr)
@@ -15,19 +15,7 @@ def startFunc():
 
 
 
-
-
-
-
-
-
-
-
-
-
-
 if __name__ == '__main__':
-
     startFunc()
 
 
