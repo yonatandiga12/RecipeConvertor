@@ -27,6 +27,11 @@ Now I can do it automaticlly!!
 
 - Select an image from your local files:
 
+
+<p align="center">
+  <img src="https://raw.githubusercontent.com/yonatandiga12/RecipeConvertor/main/pictures/picturesForREADME/select_image.jpg" width="350" title="Select image">
+</p>
+
 - The original ingredients will pop up: 
 
 <p align="center">
