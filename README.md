@@ -15,3 +15,26 @@ Now I can do it automaticlly!!
 ### What you need to run this program:
 - Tesseract installed in computer and pytesseract imported to python (decodes the photo to string)
 - csv2 imprted to python - used to read an img. 
+
+
+### How to use?
+- Run the program.
+- Hompage should pop up: 
+
+<p align="center">
+  <img src="https://raw.githubusercontent.com/yonatandiga12/RecipeConvertor/main/pictures/picturesForREADME/homepage.jpg" width="350" title="Homepage">
+</p>
+
+- Select an image from your local files:
+
+- The original ingredients will pop up: 
+
+<p align="center">
+  <img src="https://raw.githubusercontent.com/yonatandiga12/RecipeConvertor/main/pictures/picturesForREADME/old_ingredients.jpg" width="350" title="Original ingredients">
+</p>
+
+- And finally the converted ingredients 😄 : 
+
+<p align="center">
+  <img src="https://raw.githubusercontent.com/yonatandiga12/RecipeConvertor/main/pictures/picturesForREADME/new_ingredients.jpg" width="350" title="New ingredients">
+</p>
