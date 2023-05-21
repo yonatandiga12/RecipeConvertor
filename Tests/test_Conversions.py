@@ -118,7 +118,7 @@ class TestConversions(TestCase):
 
     def test_getAmountOfIngredientInGrams_Valid(self):
         result = getAmountOfIngredientInGrams('flour', 3, getNumOfUnit('cup'))
-        self.assertEqual(result, '420.0 g flour')
+        self.assertEqual(result, '420 g flour')
 
         result = getAmountOfIngredientInGrams('flour', 3, getNumOfUnit('tbsp'))
         self.assertEqual(result, '23.4 g flour')
@@ -130,13 +130,13 @@ class TestConversions(TestCase):
         self.assertEqual(result, '85.05 g flour')
 
         result = getAmountOfIngredientInGrams('sugar', 10, getNumOfUnit('cup'))
-        self.assertEqual(result, '2000.0 g sugar')
+        self.assertEqual(result, '2000 g sugar')
 
         result = getAmountOfIngredientInGrams('sugar', 10, getNumOfUnit('tsp'))
-        self.assertEqual(result, '42.0 g sugar')
+        self.assertEqual(result, '42 g sugar')
 
         result = getAmountOfIngredientInGrams('sugar', 10, getNumOfUnit('tbsp'))
-        self.assertEqual(result, '125.0 g sugar')
+        self.assertEqual(result, '125 g sugar')
 
         result = getAmountOfIngredientInGrams('sugar', 10, getNumOfUnit('oz'))
         self.assertEqual(result, '283.5 g sugar')
@@ -171,23 +171,23 @@ class TestConversions(TestCase):
 
 
     def test_convertUnitToGrams_ConfusingIngredients(self):
-        # result = convertUnitToGrams("1 cup buttermilk", getNumOfUnit("cup"))
-        # self.assertEqual(result, "240.0 g buttermilk")
-        #
-        # result = convertUnitToGrams("1 cup butter", getNumOfUnit("cup"))
-        # self.assertEqual(result, "227.0 g butter")
-        #
-        # result = convertUnitToGrams("1 cup milk", getNumOfUnit("cup"))
-        # self.assertEqual(result, "240.0 g milk")
+        result = convertUnitToGrams("1 cup buttermilk", getNumOfUnit("cup"))
+        self.assertEqual(result, "240 g buttermilk")
+
+        result = convertUnitToGrams("1 cup butter", getNumOfUnit("cup"))
+        self.assertEqual(result, "227 g butter")
+
+        result = convertUnitToGrams("1 cup milk", getNumOfUnit("cup"))
+        self.assertEqual(result, "240 g milk")
 
         result = convertUnitToGrams("1 cup coconut milk", getNumOfUnit("cup"))
-        self.assertEqual(result, "240.0 g coconut milk")
+        self.assertEqual(result, "240 g coconut milk")
 
         result = convertUnitToGrams("1 cup milk or buttermilk or coconut milk", getNumOfUnit("cup"))
-        self.assertEqual(result, "240.0 g milk")
+        self.assertEqual(result, "240 g milk")
 
         result = convertUnitToGrams("1 cup coconut milk or buttermilk or milk", getNumOfUnit("cup"))
-        self.assertEqual(result, "240.0 g coconut milk")
+        self.assertEqual(result, "240 g coconut milk")
 
 
 if __name__ == '__main__':
