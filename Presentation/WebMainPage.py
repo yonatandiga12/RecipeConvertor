@@ -5,14 +5,13 @@ import cv2
 from Business.Conversions import convertToGrams
 from Business.convertToText import readPictureFromWeb
 
-from main import startFunc
 
 mask = np.ones((490, 500))
 
 app = Tk()
-app.title('CROP')
+app.title('Convert')
 app.geometry('500x700')
-title = Label(app, text='CROP THE IMAGE', font=('Times', 24), fg='#068481')
+title = Label(app, text='Recipe Converter', font=('Times', 24), fg='#068481')
 title.pack()
 
 
