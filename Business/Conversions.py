@@ -1,13 +1,6 @@
 import re
 from DAL.ConversionTable import *
 
-# Sites to use:
-# https://www.kingarthurbaking.com/learn/ingredient-weight-chart
-# https://www.dovesfarm.co.uk/hints-&-tips/cups-to-grams-conversion-table
-# https://www.carine.co.il/%D7%94%D7%9E%D7%A8%D7%AA-%D7%9E%D7%99%D7%93%D7%95%D7%AA-%D7%95%D7%9E%D7%A9%D7%A7%D7%9C%D7%95%D7%AA/
-# https://www.allrecipes.com/article/cup-to-gram-conversions/
-
-
 tbspList = ['tbsp', 'tablespoon']
 tspList = ['tsp', 'teaspoon']
 cupsList = ['cup', 'cups']
@@ -39,12 +32,6 @@ def getUnitIndexInSentence(sentence, unit):
 
 def convertStringToNumber(sentence, unit):  ##
     p = '[-]?[0-9]+[,.]?[0-9]*([\\/][0-9]+[,.]?[0-9]*)*'
-    #p = '[-]?[0-9]+[,.]?[0-9]*([\\/][0-9]+[,.]?[0-9]*)*([\\/ ][0-9]+[,.]?[0-9]*)*'    #the last part for 1 3/4
-
-
-    # search before the UNIT in the sentence the number in string form!!
-    # if unit is TSP than check before the word tsp in this sentence and get the number!
-    # DO I really need to search before the unit? , maybe to cancel other numbers further ahead
 
     unitIndex = getUnitIndexInSentence(sentence, unit)
     if unitIndex == -1:
@@ -118,13 +105,12 @@ def getIngredientFromSentence(sentence):
 
     if len(foundList) != 0:
         if len({len(i) for i in foundList}) == 1:                     #if it matches several ingredient and all of them
-            flatList = [item for sublist in foundList for item in sublist] #has the same chance to be the ingredient
+            flatList = [item for sublist in foundList for item in sublist]  #has the same chance to be the ingredient
             return max(flatList, key=len)
 
         longestList = max(foundList, key=len)
 
         return findMatchWithLowestIndex(longestList, sentence)
-        #return max(foundList, key=len)  # returns the longest ingredient
 
     return ""  # found nothing!
 
@@ -135,8 +121,10 @@ def getAmountOfIngredientInGrams(ingredient, amount, unit):
     if amount <= 0 or weightOfUnit == -1:
         return ""
 
-    totalWeight = round(amount * weightOfUnit, 3)
-    return str(totalWeight) + " g " + ingredient.strip()
+    totalWeight = str(round(amount * weightOfUnit, 3))
+    if totalWeight[-1] == '0' and totalWeight[-2] == '.':
+        totalWeight = totalWeight[:-2]
+    return totalWeight + " g " + ingredient.strip()
 
 
 def convertUnitToGrams(sentence, unit):
